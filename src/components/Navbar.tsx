@@ -30,7 +30,6 @@ export const Navbar = () => {
     { label: 'Home', onClick: () => navigate('/') },
     { label: 'Dashboard', onClick: handleDashboardClick },
     { label: 'How It Works', onClick: () => scrollToSection('how-it-works') },
-    { label: 'Pricing', onClick: () => scrollToSection('pricing') },
   ];
 
   return (

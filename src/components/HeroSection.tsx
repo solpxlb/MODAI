@@ -7,6 +7,13 @@ const HeroSection = () => {
     window.open('https://t.me/modfi_bot?startgroup=true', '_blank');
   };
 
+  const scrollToPricing = () => {
+    const element = document.getElementById('pricing');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-warm">
       {/* FlickeringGrid Background */}
@@ -56,10 +63,10 @@ const HeroSection = () => {
           <Button
             size="lg"
             variant="outline"
-            onClick={() => window.open('https://t.me/modfi_bot', '_blank')}
+            onClick={scrollToPricing}
             className="border-border hover:bg-minimal hover:border-border/80 font-medium font-inter px-8 py-3 text-base transition-all duration-300"
           >
-            View Demo
+            Pricing
           </Button>
         </div>
 
