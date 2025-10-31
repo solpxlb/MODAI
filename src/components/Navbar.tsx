@@ -18,16 +18,26 @@ export const Navbar = () => {
     }
   };
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setMobileMenuOpen(false);
+  };
+
   const navItems = [
     { label: 'Home', onClick: () => navigate('/') },
     { label: 'Dashboard', onClick: handleDashboardClick },
+    { label: 'How It Works', onClick: () => scrollToSection('how-it-works') },
+    { label: 'Pricing', onClick: () => scrollToSection('pricing') },
   ];
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-warm backdrop-blur-md border-b border-border/50">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo - Left */}
           <div
             className="flex items-center cursor-pointer group"
             onClick={() => navigate('/')}
@@ -37,8 +47,8 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Centered Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
             {navItems.map((item) => (
               <button
                 key={item.label}
@@ -49,10 +59,11 @@ export const Navbar = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
+          </div>
 
-            <div className="pl-4 border-l border-border">
-              <WalletAuthButton showDisconnect={true} />
-            </div>
+          {/* Wallet Button - Right */}
+          <div className="hidden md:block">
+            <WalletAuthButton showDisconnect={true} />
           </div>
 
           {/* Mobile Menu Button */}
