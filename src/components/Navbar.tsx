@@ -35,7 +35,7 @@ export const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full z-50 bg-warm backdrop-blur-sm border-b border-gray-200">
       <div className="max-w-4xl mx-auto px-6">
-        <div className="flex justify-between items-center h-14">
+        <div className="relative flex justify-between items-center h-14">
           {/* Logo - Left */}
           <div
             className="flex items-center cursor-pointer group"
@@ -47,8 +47,8 @@ export const Navbar = () => {
           </div>
 
           {/* Centered Desktop Navigation */}
-          <div className="hidden lg:flex items-center">
-            <div className="flex items-center justify-center gap-6">
+          <div className="hidden lg:flex absolute inset-0 items-center justify-center pointer-events-none">
+            <div className="flex items-center gap-6 pointer-events-auto">
               {navItems.map((item) => (
                 <button
                   key={item.label}
