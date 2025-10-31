@@ -25,18 +25,18 @@ export const WalletAuthButton: React.FC<WalletAuthButtonProps> = ({
       <Button
         onClick={() => setVisible(true)}
         disabled={connecting}
-        className={cn("bg-crypto-orange hover:bg-crypto-orange/90 text-white rounded-xl", className)}
-        size="lg"
+        className={cn("bg-orange-500 hover:bg-orange-600 text-white rounded-md px-4 py-2 text-sm font-medium transition-all duration-200", className)}
+        size="sm"
       >
         {connecting ? (
           <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 h-3 w-3 animate-spin" />
             Connecting...
           </>
         ) : (
           <>
-            <Wallet className="mr-2 h-4 w-4" />
-            Select Wallet
+            <Wallet className="mr-2 h-3 w-3" />
+            Connect Wallet
           </>
         )}
       </Button>
@@ -49,18 +49,18 @@ export const WalletAuthButton: React.FC<WalletAuthButtonProps> = ({
       <Button
         onClick={signInWithWallet}
         disabled={loading || connecting}
-        className={cn("bg-crypto-orange hover:bg-crypto-orange/90 text-white rounded-xl", className)}
-        size="lg"
+        className={cn("bg-orange-500 hover:bg-orange-600 text-white rounded-md px-4 py-2 text-sm font-medium transition-all duration-200", className)}
+        size="sm"
       >
         {loading ? (
           <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 h-3 w-3 animate-spin" />
             Authenticating...
           </>
         ) : (
           <>
-            <Wallet className="mr-2 h-4 w-4" />
-            Sign In with Wallet
+            <Wallet className="mr-2 h-3 w-3" />
+            Sign In
           </>
         )}
       </Button>
@@ -70,25 +70,25 @@ export const WalletAuthButton: React.FC<WalletAuthButtonProps> = ({
   // If user is authenticated, show signed in state and optional disconnect
   if (user && showDisconnect) {
     return (
-      <div className={cn("flex items-center gap-2", className)}>
-        <div className="text-sm text-muted-foreground">
-          Connected: {publicKey?.toString().slice(0, 4)}...{publicKey?.toString().slice(-4)}
+      <div className={cn("flex items-center gap-3", className)}>
+        <div className="text-xs text-gray-600 hidden sm:block">
+          {publicKey?.toString().slice(0, 4)}...{publicKey?.toString().slice(-4)}
         </div>
         <Button
           onClick={signOut}
           size="sm"
-          className="border border-crypto-orange/20 bg-transparent hover:bg-crypto-orange hover:text-white text-crypto-orange"
+          className="border border-orange-200 bg-transparent hover:bg-orange-500 hover:text-white text-orange-500 rounded-md px-3 py-1 text-xs font-medium transition-all duration-200"
         >
-          <LogOut className="mr-2 h-4 w-4" />
-          Sign Out
+          <LogOut className="mr-1 h-3 w-3" />
+          <span className="hidden sm:inline">Sign Out</span>
         </Button>
       </div>
     );
   }
 
   return (
-    <div className={cn("text-sm text-muted-foreground", className)}>
-      Wallet Connected
+    <div className={cn("text-xs text-gray-600 hidden sm:block", className)}>
+      Connected
     </div>
   );
 };

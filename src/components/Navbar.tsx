@@ -34,53 +34,53 @@ export const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-warm backdrop-blur-md border-b border-border/50">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex justify-between items-center h-16">
+    <nav className="fixed top-0 w-full z-50 bg-warm backdrop-blur-sm border-b border-gray-200">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="flex justify-between items-center h-14">
           {/* Logo - Left */}
           <div
             className="flex items-center cursor-pointer group"
             onClick={() => navigate('/')}
           >
             <div className="flex items-center">
-              <img src={ModFiLogo} alt="ModFi" className="h-14 w-auto transition-transform duration-300 group-hover:scale-105" />
+              <img src={ModFiLogo} alt="ModFi" className="h-10 w-auto transition-transform duration-300 group-hover:scale-105" />
             </div>
           </div>
 
           {/* Centered Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
+          <div className="hidden lg:flex items-center gap-6 flex-1 justify-center">
             {navItems.map((item) => (
               <button
                 key={item.label}
                 onClick={item.onClick}
-                className="relative text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 group"
+                className="relative text-sm font-normal text-gray-600 hover:text-charcoal transition-all duration-200 group py-1"
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
           </div>
 
           {/* Wallet Button - Right */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <WalletAuthButton showDisconnect={true} />
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile/Tablet Menu Button */}
           <button
-            className="md:hidden p-2 rounded-md hover:bg-minimal transition-colors duration-200"
+            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors duration-200"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ?
-              <X className="h-5 w-5 text-foreground" /> :
-              <Menu className="h-5 w-5 text-foreground" />
+              <X className="h-5 w-5 text-charcoal" /> :
+              <Menu className="h-5 w-5 text-charcoal" />
             }
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile/Tablet Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border/50 mt-4 space-y-1 animate-slide-in">
+          <div className="lg:hidden py-4 border-t border-gray-200 mt-4 space-y-1 animate-slide-in">
             {navItems.map((item) => (
               <button
                 key={item.label}
@@ -88,12 +88,12 @@ export const Navbar = () => {
                   item.onClick();
                   setMobileMenuOpen(false);
                 }}
-                className="block w-full text-left py-3 px-4 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-minimal rounded-md transition-all duration-200"
+                className="block w-full text-left py-3 px-4 text-sm font-normal text-gray-600 hover:text-charcoal hover:bg-gray-50 rounded-md transition-all duration-200"
               >
                 {item.label}
               </button>
             ))}
-            <div className="pt-2 mt-2 border-t border-border/50">
+            <div className="pt-2 mt-2 border-t border-gray-200">
               <WalletAuthButton className="w-full" showDisconnect={true} />
             </div>
           </div>
