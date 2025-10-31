@@ -24,21 +24,21 @@ const HeroSection = () => {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-minimal border border-border/50 mb-8 animate-fade-in">
           <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-          <span className="text-sm font-medium text-muted-foreground">AI-Powered Moderation</span>
+          <span className="text-sm font-medium font-inter text-muted-foreground">AI-Powered Moderation</span>
         </div>
 
         {/* Main Title */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tight mb-6 animate-fade-in text-charcoal">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black font-playfair tracking-tight mb-6 animate-fade-in text-charcoal leading-[0.9]">
           Meet ModFi AI
         </h1>
 
         {/* Subheading */}
-        <h2 className="text-xl md:text-2xl lg:text-3xl mb-8 text-gray animate-fade-in" style={{animationDelay: '0.1s'}}>
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-medium font-inter mb-8 text-gray animate-fade-in leading-tight" style={{animationDelay: '0.1s'}}>
           Your AI Telegram Moderator for Solana Communities
         </h2>
 
         {/* Description */}
-        <p className="text-base md:text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{animationDelay: '0.2s'}}>
+        <p className="text-base md:text-lg font-light font-inter text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{animationDelay: '0.2s'}}>
           The most advanced AI moderator for your Solana Telegram groups. 24/7 automated support with intelligent responses and comprehensive community management powered by ModFi AI.
         </p>
 
@@ -47,7 +47,7 @@ const HeroSection = () => {
           <Button
             size="lg"
             onClick={handleGetStarted}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-3 text-base shadow-minimal hover:shadow-glow transition-all duration-300 hover:scale-105 group"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium font-inter px-8 py-3 text-base shadow-minimal hover:shadow-glow transition-all duration-300 hover:scale-105 group"
           >
             Get Started Now
             <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -57,7 +57,7 @@ const HeroSection = () => {
             size="lg"
             variant="outline"
             onClick={() => window.open('https://t.me/modfi_bot', '_blank')}
-            className="border-border hover:bg-minimal hover:border-border/80 font-medium px-8 py-3 text-base transition-all duration-300"
+            className="border-border hover:bg-minimal hover:border-border/80 font-medium font-inter px-8 py-3 text-base transition-all duration-300"
           >
             View Demo
           </Button>
@@ -72,7 +72,7 @@ const HeroSection = () => {
             className="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors duration-300 group"
           >
             <MessageSquare className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-sm font-medium">Community</span>
+            <span className="text-sm font-medium font-inter">Community</span>
           </a>
           <a
             href="https://t.me/modfi_bot"
@@ -81,7 +81,7 @@ const HeroSection = () => {
             className="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors duration-300 group mr-1"
           >
             <MessageSquare className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-sm font-medium">Try Bot</span>
+            <span className="text-sm font-medium font-inter">Try Bot</span>
           </a>
           <a
             href="https://x.com/modfiai"
@@ -90,7 +90,7 @@ const HeroSection = () => {
             className="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors duration-300 group"
           >
             <Twitter className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-sm font-medium">Twitter</span>
+            <span className="text-sm font-medium font-inter">Twitter</span>
           </a>
         </div>
       </div>

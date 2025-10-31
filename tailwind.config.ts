@@ -14,6 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
+        'playfair': ['Playfair Display', 'Georgia', 'serif'],
         'inter': ['Inter', 'system-ui', 'sans-serif'],
         'geist': ['Geist', 'system-ui', 'sans-serif'],
         'sans': ['Inter', 'system-ui', 'sans-serif'],
