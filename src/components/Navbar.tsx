@@ -47,8 +47,8 @@ export const Navbar = () => {
           </div>
 
           {/* Centered Desktop Navigation */}
-          <div className="hidden lg:flex items-center justify-center flex-1">
-            <div className="flex items-center gap-6">
+          <div className="hidden lg:flex items-center">
+            <div className="flex items-center justify-center gap-6">
               {navItems.map((item) => (
                 <button
                   key={item.label}
