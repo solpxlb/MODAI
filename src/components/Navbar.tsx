@@ -63,7 +63,7 @@ export const Navbar = () => {
           </div>
 
           {/* Wallet Button - Right */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block pl-6">
             <WalletAuthButton showDisconnect={true} />
           </div>
 
