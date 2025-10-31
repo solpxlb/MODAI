@@ -47,17 +47,19 @@ export const Navbar = () => {
           </div>
 
           {/* Centered Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6 flex-1 justify-center">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={item.onClick}
-                className="relative text-sm font-normal text-gray-600 hover:text-charcoal transition-all duration-200 group py-1"
-              >
-                {item.label}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
-              </button>
-            ))}
+          <div className="hidden lg:flex items-center justify-center flex-1">
+            <div className="flex items-center gap-6">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  className="relative text-sm font-normal text-gray-600 hover:text-charcoal transition-all duration-200 group py-1"
+                >
+                  {item.label}
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Wallet Button - Right */}
