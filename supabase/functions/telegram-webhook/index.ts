@@ -679,7 +679,7 @@ async function handleStartCommand(message: any) {
     }
     
     if (setupSession && groupInfo && new Date(setupSession.expires_at) > new Date()) {
-      const setupUrl = `https://modfi.ai/setup?token=${token}`;
+      const setupUrl = `https://www.modfi.xyz/setup?token=${token}`;
       
       const setupMessage = `
 🔧 <b>Setup Link for ${groupInfo.group_title}</b>
@@ -783,7 +783,7 @@ Please ask a group admin to run this command.
     const token = await generateSetupToken(userId, chatId);
     
     // Create setup URL - using the published URL
-    const setupUrl = `https://modfi.ai/setup?token=${token}`;
+    const setupUrl = `https://www.modfi.xyz/setup?token=${token}`;
     
     // Always show "Continue in Private Chat" button for consistent user experience
     const groupResponseText = `
