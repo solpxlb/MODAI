@@ -35,10 +35,10 @@ export const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full z-50 bg-warm backdrop-blur-sm border-b border-gray-200">
       <div className="max-w-4xl mx-auto px-6">
-        <div className="flex justify-between items-center h-14">
+        <div className="relative flex justify-between items-center h-14">
           {/* Logo - Left */}
           <div
-            className="flex items-center cursor-pointer group flex-shrink-0"
+            className="flex items-center cursor-pointer group"
             onClick={() => navigate('/')}
           >
             <div className="flex items-center">
@@ -47,8 +47,8 @@ export const Navbar = () => {
           </div>
 
           {/* Centered Desktop Navigation */}
-          <div className="hidden lg:flex items-center justify-center flex-1">
-            <div className="flex items-center gap-6">
+          <div className="hidden lg:flex absolute inset-0 items-center justify-center pointer-events-none">
+            <div className="flex items-center gap-6 pointer-events-auto">
               {navItems.map((item) => (
                 <button
                   key={item.label}
@@ -62,11 +62,6 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Wallet Button - Right */}
-          <div className="hidden lg:block flex-shrink-0">
-            <WalletAuthButton showDisconnect={true} />
-          </div>
-
           {/* Mobile/Tablet Menu Button */}
           <button
             className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors duration-200"
@@ -77,6 +72,11 @@ export const Navbar = () => {
               <Menu className="h-5 w-5 text-charcoal" />
             }
           </button>
+        </div>
+
+        {/* Wallet Button - Outside main container */}
+        <div className="hidden lg:block absolute right-6 top-1/2 -translate-y-1/2">
+          <WalletAuthButton showDisconnect={true} />
         </div>
 
         {/* Mobile/Tablet Menu */}
