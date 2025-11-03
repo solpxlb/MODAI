@@ -73,7 +73,7 @@ const HeroSection = () => {
         {/* Social Links */}
         <div className="flex items-center justify-center gap-6 md:gap-8 animate-fade-in" style={{animationDelay: '0.4s'}}>
           <a
-            href="https://t.me/modfi_bot"
+            href="https://t.me/modfiai"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors duration-300 group"
