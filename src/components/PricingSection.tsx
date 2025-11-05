@@ -13,7 +13,7 @@ const PricingSection = () => {
             Start free and scale as your community grows
           </p>
           <p className="text-sm text-muted-foreground/80">
-            💡 Purchasing unlocks in 2 days
+            🎉 Free for the next 3 days!
           </p>
         </div>
 
@@ -36,7 +36,7 @@ const PricingSection = () => {
             tier="Standard"
             price="$50/mo"
             bestFor="Best for growing communities"
-            CTA="Buy Standard Plan"
+            CTA="Free for Next 3 Days"
             benefits={[
               { text: "2 Telegram groups", checked: true },
               { text: "Unlimited queries", checked: true },
@@ -50,7 +50,7 @@ const PricingSection = () => {
             tier="Scale"
             price="$150/mo"
             bestFor="Best for large communities"
-            CTA="Buy Scale Plan"
+            CTA="Free for Next 3 Days"
             benefits={[
               { text: "Unlimited Telegram groups", checked: true },
               { text: "Unlimited queries", checked: true },

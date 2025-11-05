@@ -62,7 +62,10 @@ export const PricingCard = ({
           <span className="mb-6 inline-block dark:text-zinc-50 text-zinc-900">
             {tier}
           </span>
-          <span className="mb-3 inline-block text-4xl font-medium">
+          <span className={cn(
+            "mb-3 inline-block text-4xl font-medium",
+            CTA.includes("Free") && "line-through opacity-60"
+          )}>
             {price}
           </span>
           <span className="dark:bg-gradient-to-br dark:from-zinc-200 dark:to-zinc-500 bg-gradient-to-br from-zinc-700 to-zinc-900 bg-clip-text text-center text-transparent">
@@ -75,8 +78,11 @@ export const PricingCard = ({
           ))}
         </div>
         <Button
-          className="w-full"
-          variant="default"
+          className={cn(
+            "w-full",
+            CTA.includes("Free") && "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold"
+          )}
+          variant={CTA.includes("Free") ? "default" : "default"}
         >
           {CTA}
         </Button>
