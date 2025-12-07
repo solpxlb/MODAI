@@ -71,39 +71,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setLoading(true);
 
-      // Create a compatible wallet object for Supabase using the latest pattern
-      const web3Wallet = {
-        publicKey: {
-          toBase58: () => wallet.publicKey!.toBase58(),
-        },
-        signMessage: async (message: Uint8Array) => {
-          if (!wallet.signMessage) {
-            throw new Error('Wallet does not support message signing');
-          }
-          const signature = await wallet.signMessage(message);
-          // Ensure the signature is returned as Uint8Array
-          return signature instanceof Uint8Array ? signature : new Uint8Array(signature);
-        },
+      // Create a minimal wallet wrapper for Supabase
+      // Only provide publicKey and signMessage - let Supabase create the SIWS message format
+      const supabaseWallet = {
+        publicKey: wallet.publicKey,
+        signMessage: wallet.signMessage,
       };
 
       const { data, error } = await supabase.auth.signInWithWeb3({
         chain: 'solana',
         statement: 'I accept the Terms of Service and Privacy Policy of SolanaBot AI.',
-        wallet: web3Wallet,
+        wallet: supabaseWallet as any,
       });
 
       if (error) {
         throw error;
       }
 
-      // After successful auth, update user metadata with wallet address and refresh session
+      // After successful auth, update user metadata with wallet address
       if (data.user) {
         await supabase.auth.updateUser({
           data: { wallet_address: wallet.publicKey!.toBase58() }
         });
-        // Ensure JWT includes wallet_address for RLS
-        await supabase.auth.refreshSession();
-        await new Promise((r) => setTimeout(r, 300));
       }
 
       toast({
@@ -120,6 +109,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           errorMessage = "Unable to connect to authentication service. Please check your network connection.";
         } else if (error.message.includes('wallet')) {
           errorMessage = "Wallet authentication failed. Please try again.";
+        } else if (error.message.includes('User rejected')) {
+          errorMessage = "Signature request was rejected. Please try again and approve the signature.";
         } else {
           errorMessage = error.message;
         }
@@ -139,7 +130,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setLoading(true);
       const { error } = await supabase.auth.signOut();
-      
+
       if (error) {
         throw error;
       }
