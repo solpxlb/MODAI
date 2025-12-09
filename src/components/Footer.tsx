@@ -62,7 +62,7 @@ const Footer = () => {
             <h4 className="text-sm font-semibold text-foreground mb-4">Community</h4>
             <div className="flex flex-col space-y-3">
               <a
-                href="https://t.me/modfiai"
+                href="https://t.me/wardenbotai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -80,7 +80,7 @@ const Footer = () => {
                 Warden Bot
               </a>
               <a
-                href="https://x.com/modfiai"
+                href="https://x.com/wardenaibot"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
