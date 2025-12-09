@@ -4,7 +4,7 @@ import { MessageSquare, Twitter, ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
   const handleGetStarted = () => {
-    window.open('https://t.me/modfi_bot?startgroup=true', '_blank');
+    window.open('https://t.me/wardenai_bot?startgroup=true', '_blank');
   };
 
   const scrollToPricing = () => {
@@ -36,21 +36,21 @@ const HeroSection = () => {
 
         {/* Main Title */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black font-playfair tracking-tight mb-6 animate-fade-in text-charcoal leading-[0.9]">
-          Meet ModFi AI
+          Meet Warden Bot
         </h1>
 
         {/* Subheading */}
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-medium font-inter mb-8 text-gray animate-fade-in leading-tight" style={{animationDelay: '0.1s'}}>
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-medium font-inter mb-8 text-gray animate-fade-in leading-tight" style={{ animationDelay: '0.1s' }}>
           Your AI Telegram Moderator for Solana Communities
         </h2>
 
         {/* Description */}
-        <p className="text-base md:text-lg font-light font-inter text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{animationDelay: '0.2s'}}>
-          The most advanced AI moderator for your Solana Telegram groups. 24/7 automated support with intelligent responses and comprehensive community management powered by ModFi AI.
+        <p className="text-base md:text-lg font-light font-inter text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          The most advanced AI moderator for your Solana Telegram groups. 24/7 automated support with intelligent responses and comprehensive community management powered by Warden Bot.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-in" style={{animationDelay: '0.3s'}}>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <Button
             size="lg"
             onClick={handleGetStarted}
@@ -71,7 +71,7 @@ const HeroSection = () => {
         </div>
 
         {/* Social Links */}
-        <div className="flex items-center justify-center gap-6 md:gap-8 animate-fade-in" style={{animationDelay: '0.4s'}}>
+        <div className="flex items-center justify-center gap-6 md:gap-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <a
             href="https://t.me/modfiai"
             target="_blank"
@@ -82,7 +82,7 @@ const HeroSection = () => {
             <span className="text-sm font-medium font-inter">Community</span>
           </a>
           <a
-            href="https://t.me/modfi_bot"
+            href="https://t.me/wardenai_bot"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors duration-300 group mr-1"

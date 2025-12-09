@@ -5,21 +5,21 @@ const HowItWorks = () => {
     {
       number: 1,
       icon: UserPlus,
-      title: "Add ModFi AI to Your Group",
-      description: "Invite @modfi_bot to your Telegram community where you're an admin."
+      title: "Add Warden Bot to Your Group",
+      description: "Invite @wardenai_bot to your Telegram community where you're an admin."
     },
     {
       number: 2,
       icon: Terminal,
       title: "Run the Setup Command",
       description: "In your group chat, type:",
-      code: "/settings@modfi_bot"
+      code: "/settings@wardenai_bot"
     },
     {
       number: 3,
       icon: Link,
       title: "Get Your Private Setup Link",
-      description: "ModFi AI will instantly DM you a secure link."
+      description: "Warden Bot will instantly DM you a secure link."
     },
     {
       number: 4,
@@ -31,7 +31,7 @@ const HowItWorks = () => {
       number: 5,
       icon: Zap,
       title: "Go Live Instantly",
-      description: "That's it. Your ModFi AI concierge is now active in your community, ready to answer questions, onboard newcomers, and help your mods 24/7."
+      description: "That's it. Your Warden Bot concierge is now active in your community, ready to answer questions, onboard newcomers, and help your mods 24/7."
     }
   ];
 

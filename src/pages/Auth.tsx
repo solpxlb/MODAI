@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { WalletAuthButton } from '@/components/WalletAuthButton';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import ModFiLogo from "/orb.png";
+import WardenBotLogo from "/warden_logo_trans.png";
 
 const Auth: React.FC = () => {
   const { user } = useAuth();
@@ -26,18 +26,18 @@ const Auth: React.FC = () => {
       {/* Background with gradient and glow effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-crypto-purple/10 via-transparent to-crypto-orange/10" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--crypto-orange)/0.1),transparent_50%)]" />
-      
+
       <Card className="w-full max-w-md relative z-10 bg-card/80 backdrop-blur-lg border-border/20 shadow-elevated">
         <CardHeader className="space-y-4 text-center">
           <div className="flex justify-center mb-2">
             <div className="relative">
-              <img src={ModFiLogo} alt="ModFi AI" className="h-16 w-auto" />
+              <img src={WardenBotLogo} alt="Warden Bot" className="h-16 w-auto" />
               <div className="absolute inset-0 rounded-full blur-xl bg-crypto-orange/20" />
             </div>
           </div>
           <div className="space-y-2">
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-foreground to-crypto-orange bg-clip-text text-transparent">
-              Welcome to ModFi AI
+              Welcome to Warden Bot
             </CardTitle>
             <CardDescription className="text-base text-muted-foreground leading-relaxed">
               Connect your Solana wallet to access your AI-powered Telegram group management platform
@@ -58,9 +58,9 @@ const Auth: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <Separator className="bg-border/50" />
-          
+
           <div className="space-y-4">
             <h4 className="font-medium text-foreground">Supported Wallets</h4>
             <div className="grid grid-cols-2 gap-3">
@@ -74,7 +74,7 @@ const Auth: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="text-xs text-center text-muted-foreground leading-relaxed">
             By connecting your wallet, you agree to our{" "}
             <span className="text-crypto-orange hover:underline cursor-pointer">Terms of Service</span>{" "}

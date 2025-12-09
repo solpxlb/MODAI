@@ -43,7 +43,7 @@ const TRIGGER_PATTERNS = [
   /\b(update|status|progress|news|info)\b/i,  // Information requests
 ];
 
-const DIRECT_MENTION_REGEX = /@modfi_bot|\/\w+@modfi_bot/i;  // Keep for direct mentions
+const DIRECT_MENTION_REGEX = /@wardenai_bot|\/\w+@wardenai_bot/i;  // Keep for direct mentions
 
 // LRU Cache for group contexts
 interface CacheEntry {
@@ -56,32 +56,32 @@ class GroupContextCache {
   private cache = new Map<string, CacheEntry>();
   private readonly MAX_SIZE = 500;
   private readonly TTL_MS = 90000; // 90 seconds
-  
+
   get(groupId: string, currentVersion: number): string | null {
     if (!CACHE_ENABLED) return null;
-    
+
     const entry = this.cache.get(groupId);
     if (!entry || Date.now() - entry.timestamp > this.TTL_MS) {
       this.cache.delete(groupId);
       return null;
     }
-    
+
     // Version-based invalidation
     if (entry.contextsVersion !== currentVersion) {
       this.cache.delete(groupId);
       return null;
     }
-    
+
     // LRU: Move to end by re-inserting
     this.cache.delete(groupId);
     this.cache.set(groupId, entry);
-    
+
     return entry.contexts;
   }
-  
+
   set(groupId: string, contexts: string, version: number): void {
     if (!CACHE_ENABLED) return;
-    
+
     // Implement LRU eviction
     if (this.cache.size >= this.MAX_SIZE) {
       const firstKey = this.cache.keys().next().value;
@@ -89,7 +89,7 @@ class GroupContextCache {
         this.cache.delete(firstKey);
       }
     }
-    
+
     this.cache.set(groupId, {
       contexts,
       contextsVersion: version,
@@ -185,21 +185,21 @@ async function sendTelegramMessage(chatId: number, text: string, replyMarkup?: a
     reply_markup: replyMarkup,
     parse_mode: 'HTML'
   };
-  
+
   if (replyToMessageId) {
     body.reply_to_message_id = replyToMessageId;
   }
-  
+
   const response = await fetch(`${TELEGRAM_API_URL}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
-  
+
   if (!response.ok) {
     console.error('Failed to send Telegram message:', await response.text());
   }
-  
+
   return response;
 }
 
@@ -227,11 +227,11 @@ class TypingIndicatorManager {
 
   start(chatId: number, intervalMs = 4000) {
     if (this.isActive) return;
-    
+
     this.isActive = true;
     // Send initial typing action
     sendTypingAction(chatId);
-    
+
     // Continue sending typing actions every 4 seconds
     this.interval = setInterval(() => {
       if (this.isActive) {
@@ -280,7 +280,7 @@ async function getChatMember(chatId: number, userId: number) {
         user_id: userId
       })
     });
-    
+
     if (response.ok) {
       const data = await response.json();
       return data.result;
@@ -294,7 +294,7 @@ async function getChatMember(chatId: number, userId: number) {
 async function generateSetupToken(telegramUserId: number, groupChatId: number): Promise<string> {
   const token = crypto.randomUUID();
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-  
+
   const { error } = await supabase
     .from('setup_sessions')
     .insert({
@@ -303,12 +303,12 @@ async function generateSetupToken(telegramUserId: number, groupChatId: number): 
       group_chat_id: groupChatId,
       expires_at: expiresAt.toISOString()
     });
-    
+
   if (error) {
     console.error('Error creating setup session:', error);
     throw error;
   }
-  
+
   return token;
 }
 
@@ -327,12 +327,12 @@ async function ensureGroupExists(chatId: number, groupTitle?: string, groupType?
     })
     .select()
     .single();
-    
+
   if (error) {
     console.error('Error upserting group:', error);
     throw error;
   }
-  
+
   return group;
 }
 
@@ -352,39 +352,39 @@ async function ensureUserProfile(telegramUserId: number, username?: string, firs
     })
     .select()
     .single();
-    
+
   if (error) {
     console.error('Error upserting user profile:', error);
     throw error;
   }
-  
+
   return profile;
 }
 
 // New unified function using RPC for faster single-query data retrieval
 async function getGroupReplyData(groupId: string): Promise<{
   contexts: string;
-  messages: string; 
+  messages: string;
   contextsVersion: number;
 }> {
   try {
     const { data, error } = await supabase.rpc('get_group_reply_data', {
       p_group_id: groupId
     });
-    
+
     if (error) {
       console.error('Error fetching group reply data:', error);
       return { contexts: '', messages: '', contextsVersion: 0 };
     }
-    
+
     if (!data) {
       return { contexts: '', messages: '', contextsVersion: 0 };
     }
-    
+
     // Check cache first
     const cachedContexts = contextCache.get(groupId, data.contexts_version);
     let contextsString = '';
-    
+
     if (cachedContexts) {
       contextsString = cachedContexts;
       if (DEBUG_METRICS) {
@@ -402,7 +402,7 @@ async function getGroupReplyData(groupId: string): Promise<{
         }
       }
     }
-    
+
     // Build messages string
     let messagesString = '';
     if (data.messages && data.messages.length > 0) {
@@ -411,7 +411,7 @@ async function getGroupReplyData(groupId: string): Promise<{
         .map((msg: any) => `${msg.username || 'User'}: ${msg.message_text}`)
         .join('\n');
     }
-    
+
     return {
       contexts: contextsString,
       messages: messagesString,
@@ -481,10 +481,10 @@ async function generateStreamingResponse(model: string, systemPrompt: string, us
       ],
       stream: true
     };
-    
+
     // Add parameters for x-ai/grok model
-  requestBody.temperature = 0.7;
-    
+    requestBody.temperature = 0.7;
+
     const response = await fetch(OPENROUTER_API_URL, {
       method: 'POST',
       headers: {
@@ -493,31 +493,31 @@ async function generateStreamingResponse(model: string, systemPrompt: string, us
       },
       body: JSON.stringify(requestBody),
     });
-    
+
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
     }
-    
+
     // Conservative streaming: buffer all chunks and send final message
     let fullResponse = '';
     const reader = response.body?.getReader();
-    
+
     if (!reader) {
       throw new Error('No response body reader available');
     }
-    
+
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
-      
+
       const chunk = new TextDecoder().decode(value);
       const lines = chunk.split('\n');
-      
+
       for (const line of lines) {
         if (line.startsWith('data: ')) {
           const data = line.slice(6);
           if (data === '[DONE]') continue;
-          
+
           try {
             const parsed = JSON.parse(data);
             const content = parsed.choices?.[0]?.delta?.content;
@@ -530,7 +530,7 @@ async function generateStreamingResponse(model: string, systemPrompt: string, us
         }
       }
     }
-    
+
     return fullResponse.trim() || 'Sorry, I couldn\'t generate a response. Please try again.';
   } catch (error) {
     console.error('Streaming error:', error);
@@ -539,40 +539,40 @@ async function generateStreamingResponse(model: string, systemPrompt: string, us
 }
 
 async function generateAIResponse(
-  groupId: string, 
-  userMessage: string, 
-  chatId?: number, 
+  groupId: string,
+  userMessage: string,
+  chatId?: number,
   messageId?: number,
   typingManager?: TypingIndicatorManager
 ): Promise<string> {
   try {
     const startTime = Date.now();
-    
+
     if (DEBUG_METRICS) {
       console.log(`[Performance] Starting AI response generation for group ${groupId}`);
     }
-    
+
     // Check for simple greetings that don't need AI
     if (isSimpleGreeting(userMessage)) {
       return "Hello! How can I help you with our project today?";
     }
-    
+
     // Single RPC call instead of multiple queries
     const replyData = await getGroupReplyData(groupId);
-    
+
     const dbFetchTime = Date.now() - startTime;
     if (DEBUG_METRICS) {
       console.log(`[Performance] Database fetch completed in ${dbFetchTime}ms`);
     }
-    
+
     // Select model based on complexity
     const selectedModel = selectModel(userMessage, replyData.contexts.length);
-    
+
     // Optimized system prompt (compressed format)
-    const systemPrompt = `ModFi Bot - AI assistant for this Telegram group. ONLY respond to project-related queries.
+    const systemPrompt = `Warden Bot - AI assistant for this Telegram group. ONLY respond to project-related queries.
 
 PROJECT CONTEXT:
-${replyData.contexts || 'No context configured - ask admin to use /settings@modfi_bot'}
+${replyData.contexts || 'No context configured - ask admin to use /settings@wardenai_bot'}
 
 RULES: Only answer project questions | Decline unrelated queries | Keep responses concise | Be professional yet conversational
 
@@ -583,7 +583,7 @@ ${replyData.messages || 'No recent history'}`;
     if (DEBUG_METRICS) {
       console.log(`[Performance] Starting AI API call with model: ${selectedModel}`);
     }
-    
+
     // Handle streaming vs non-streaming with continuous typing
     if (STREAMING_ENABLED && chatId && messageId && typingManager) {
       typingManager.start(chatId);
@@ -596,7 +596,7 @@ ${replyData.messages || 'No recent history'}`;
         throw error;
       }
     }
-    
+
     const requestBody: any = {
       model: selectedModel,
       messages: [
@@ -604,10 +604,10 @@ ${replyData.messages || 'No recent history'}`;
         { role: 'user', content: userMessage }
       ]
     };
-    
+
     // Add parameters for x-ai/grok model
-  requestBody.temperature = 0.7;
-    
+    requestBody.temperature = 0.7;
+
     const response = await fetch(OPENROUTER_API_URL, {
       method: 'POST',
       headers: {
@@ -625,22 +625,22 @@ ${replyData.messages || 'No recent history'}`;
 
     const data = await response.json();
     const aiResponse = data.choices?.[0]?.message?.content;
-    
+
     const aiResponseTime = Date.now() - aiStartTime;
     if (DEBUG_METRICS) {
       console.log(`[Performance] AI API call completed in ${aiResponseTime}ms`);
     }
-    
+
     if (!aiResponse) {
       console.error('No AI response received:', JSON.stringify(data));
       return 'Sorry, I couldn\'t generate a response. Please try again.';
     }
-    
+
     const totalTime = Date.now() - startTime;
     if (DEBUG_METRICS) {
       console.log(`[Performance] Total AI response generation completed in ${totalTime}ms (Cache: ${CACHE_ENABLED ? 'ON' : 'OFF'}, Model: ${selectedModel})`);
     }
-    
+
     return aiResponse.trim();
   } catch (error) {
     console.error('Error generating AI response:', error);
@@ -652,12 +652,12 @@ async function handleStartCommand(message: any) {
   const chatId = message.chat.id;
   const userId = message.from.id;
   const text = message.text;
-  
+
   // Check if this is a setup redirect from a group
   const setupMatch = text.match(/\/start setup_(.+)/);
   if (setupMatch) {
     const token = setupMatch[1];
-    
+
     // Verify the setup token exists and get group info
     const { data: setupSession } = await supabase
       .from('setup_sessions')
@@ -667,7 +667,7 @@ async function handleStartCommand(message: any) {
       .eq('token', token)
       .eq('is_used', false)
       .single();
-      
+
     let groupInfo = null;
     if (setupSession) {
       const { data: group } = await supabase
@@ -677,10 +677,10 @@ async function handleStartCommand(message: any) {
         .single();
       groupInfo = group;
     }
-    
+
     if (setupSession && groupInfo && new Date(setupSession.expires_at) > new Date()) {
-      const setupUrl = `https://www.modfi.xyz/setup?token=${token}`;
-      
+      const setupUrl = `https://www.wardenbotai.xyz/setup?token=${token}`;
+
       const setupMessage = `
 🔧 <b>Setup Link for ${groupInfo.group_title}</b>
 
@@ -691,7 +691,7 @@ ${setupUrl}
 
 Complete the setup to configure your group's AI context and start using intelligent responses.
       `;
-      
+
       await sendTelegramMessage(chatId, setupMessage);
       return;
     } else {
@@ -700,38 +700,38 @@ Complete the setup to configure your group's AI context and start using intellig
 
 This setup link has expired or already been used.
 
-Please go back to your group and run /settings@modfi_bot again to get a new setup link.
+Please go back to your group and run /settings@wardenai_bot again to get a new setup link.
       `;
-      
+
       await sendTelegramMessage(chatId, expiredMessage);
       return;
     }
   }
-  
+
   const welcomeText = `
-🤖 <b>Welcome to ModFi Bot!</b>
+🤖 <b>Welcome to Warden Bot!</b>
 
 I'm an AI assistant that helps manage your Telegram groups with custom context and intelligent responses.
 
 <b>How it works:</b>
 1️⃣ Add me to your group chat
-2️⃣ Use /settings@modfi_bot in the group
+2️⃣ Use /settings@wardenai_bot in the group
 3️⃣ Complete setup on our website
 4️⃣ I'll respond intelligently using your group's context
 
 <b>Ready to get started?</b>
-Add me to your group and run /settings@modfi_bot to begin!
+Add me to your group and run /settings@wardenai_bot to begin!
   `;
-  
+
   const addToGroupKeyboard = {
     inline_keyboard: [[
       {
         text: "➕ Add to Group",
-        url: "https://t.me/modfi_bot?startgroup=true"
+        url: "https://t.me/wardenai_bot?startgroup=true"
       }
     ]]
   };
-  
+
   await sendTelegramMessage(chatId, welcomeText, addToGroupKeyboard);
 }
 
@@ -739,52 +739,52 @@ async function handleSettingsCommand(message: any) {
   const chatId = message.chat.id;
   const userId = message.from.id;
   const chatType = message.chat.type;
-  
+
   if (chatType === 'private') {
     const responseText = `
 ❌ <b>Settings command must be used in a group!</b>
 
 Please:
 1️⃣ Add me to your group chat
-2️⃣ Run /settings@modfi_bot in the group
+2️⃣ Run /settings@wardenai_bot in the group
 3️⃣ I'll guide you through the setup process
     `;
-    
+
     await sendTelegramMessage(chatId, responseText);
     return;
   }
-  
+
   // Check if user is admin
   const memberInfo = await getChatMember(chatId, userId);
   const isAdmin = memberInfo && (memberInfo.status === 'creator' || memberInfo.status === 'administrator');
-  
+
   if (!isAdmin) {
     const responseText = `
 ❌ <b>Only group administrators can configure settings!</b>
 
 Please ask a group admin to run this command.
     `;
-    
+
     await sendTelegramMessage(chatId, responseText);
     return;
   }
-  
+
   try {
     // Ensure group and user exist in database
     const group = await ensureGroupExists(chatId, message.chat.title, chatType);
     const userProfile = await ensureUserProfile(
-      userId, 
-      message.from.username, 
-      message.from.first_name, 
+      userId,
+      message.from.username,
+      message.from.first_name,
       message.from.last_name
     );
-    
+
     // Create setup session token
     const token = await generateSetupToken(userId, chatId);
-    
+
     // Create setup URL - using the published URL
-    const setupUrl = `https://www.modfi.xyz/setup?token=${token}`;
-    
+    const setupUrl = `https://www.wardenbotai.xyz/setup?token=${token}`;
+
     // Always show "Continue in Private Chat" button for consistent user experience
     const groupResponseText = `
 🔧 <b>Group Setup</b>
@@ -795,27 +795,27 @@ For security, I'll provide the setup link in our private chat. Click the button 
 
 ⚠️ <i>Setup link expires in 24 hours</i>
     `;
-    
+
     const privateKeyboard = {
       inline_keyboard: [[
         {
           text: "💬 Continue in Private Chat",
-          url: `https://t.me/modfi_bot?start=setup_${token}`
+          url: `https://t.me/wardenai_bot?start=setup_${token}`
         }
       ]]
     };
-    
+
     await sendTelegramMessage(chatId, groupResponseText, privateKeyboard);
-    
+
   } catch (error) {
     console.error('Error handling settings command:', error);
-    
+
     const errorText = `
 ❌ <b>Setup Error</b>
 
 There was an error setting up your group. Please try again later or contact support.
     `;
-    
+
     await sendTelegramMessage(chatId, errorText);
   }
 }
@@ -823,10 +823,10 @@ There was an error setting up your group. Please try again later or contact supp
 async function storeConversationMessage(message: any, botResponse?: string) {
   try {
     const chatId = message.chat.id;
-    
+
     // Ensure group exists
     const group = await ensureGroupExists(chatId, message.chat.title, message.chat.type);
-    
+
     const { error } = await supabase
       .from('conversation_messages')
       .insert({
@@ -838,7 +838,7 @@ async function storeConversationMessage(message: any, botResponse?: string) {
         bot_response: botResponse,
         processed_at: botResponse ? new Date().toISOString() : null
       });
-      
+
     if (error) {
       console.error('Error storing conversation message:', error);
     }
@@ -858,7 +858,7 @@ serve(async (req) => {
   try {
     const body = await req.json();
     const message = body.message;
-    
+
     // OPTIMIZATION 1: Hot-path hygiene - immediate bail for non-messages
     if (!message || !message.text) {
       return new Response('OK', { status: 200, headers: corsHeaders });
@@ -911,14 +911,14 @@ serve(async (req) => {
     // OPTIMIZATION 1: Send typing indicator immediately + start continuous typing
     const typingManager = new TypingIndicatorManager();
     typingManager.start(chat_id);
-    
-    
+
+
     if (DEBUG_METRICS) {
       console.log(`[Performance] Mention detected in ${Date.now() - requestStartTime}ms`);
     }
 
     // Handle settings command
-    if (text.includes('/settings') && text.includes('@modfi_bot')) {
+    if (text.includes('/settings') && text.includes('@wardenai_bot')) {
       typingManager.stop();
       responseController.recordResponse(chat_id);
       await handleSettingsCommand(message);
@@ -931,18 +931,18 @@ serve(async (req) => {
         ensureGroupExists(chat_id, chat_title, chat_type),
         ensureUserProfile(user_id, username, first_name, last_name)
       ]);
-      
+
       // Clean the message text for autonomous processing
       let cleanMessage = text
-        .replace(/@modfi_bot/g, '')
-        .replace(/\/\w+@modfi_bot/g, '')
+        .replace(/@wardenai_bot/g, '')
+        .replace(/\/\w+@wardenai_bot/g, '')
         .trim();
 
       // Handle empty messages after cleaning (only direct mentions)
       if (!cleanMessage && isDirectMentionMsg) {
         typingManager.stop();
         responseController.recordResponse(chat_id);
-        const helpText = `🤖 <b>How can I help?</b>\n\nI can now answer questions automatically! Ask me anything about our project, or I'll jump in when I see questions or mentions of admin/dev/mod topics.\n\nUse /settings@modfi_bot to configure my knowledge base.`;
+        const helpText = `🤖 <b>How can I help?</b>\n\nI can now answer questions automatically! Ask me anything about our project, or I'll jump in when I see questions or mentions of admin/dev/mod topics.\n\nUse /settings@wardenai_bot to configure my knowledge base.`;
         await sendTelegramMessage(chat_id, helpText);
 
         // OPTIMIZATION 5: Background storage (fire-and-forget)
@@ -955,7 +955,7 @@ serve(async (req) => {
       // OPTIMIZATION 3: Proactive placeholder system (send immediately if predicted >1.5s)
       let placeholderMessageId: number | null = null;
       const complexityScore = cleanMessage.length + (cleanMessage.includes('?') ? 200 : 0);
-      
+
       if (complexityScore > 1500) {
         const placeholder = "🤔 Analyzing your question...";
         const placeholderResponse = await sendTelegramMessage(chat_id, placeholder);
@@ -968,16 +968,16 @@ serve(async (req) => {
       // Generate AI response with continuous typing
       const aiStartTime = Date.now();
       let aiResponse: string;
-      
+
       try {
         aiResponse = await generateAIResponse(group.id, cleanMessage, chat_id, message_id, typingManager);
       } finally {
         // Always stop typing when AI response is done
         typingManager.stop();
       }
-      
+
       const aiTotalTime = Date.now() - aiStartTime;
-      
+
       // Record our response and send
       responseController.recordResponse(chat_id);
 
@@ -1005,7 +1005,7 @@ serve(async (req) => {
       console.error('Error processing mention:', error);
       await sendTelegramMessage(chat_id, 'Sorry, I encountered an error. Please try again later.');
     }
-    
+
     return new Response('OK', { status: 200, headers: corsHeaders });
 
   } catch (error) {

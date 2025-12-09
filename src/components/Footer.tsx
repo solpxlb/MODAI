@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Brand Section */}
           <div className="md:col-span-2">
-            <h3 className="text-lg font-semibold text-foreground mb-4">ModFi</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-4">Warden Bot</h3>
             <p className="text-sm text-muted-foreground max-w-md">
               The ultimate Telegram community management bot powered by AI.
               Automate moderation, engage users, and grow your community.
@@ -19,8 +19,8 @@ const Footer = () => {
             <h4 className="text-sm font-semibold text-foreground mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a 
-                  href="#features" 
+                <a
+                  href="#features"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
@@ -31,8 +31,8 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#how-it-works" 
+                <a
+                  href="#how-it-works"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
@@ -43,8 +43,8 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#pricing" 
+                <a
+                  href="#pricing"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
@@ -71,13 +71,13 @@ const Footer = () => {
                 Telegram Community
               </a>
               <a
-                href="https://t.me/modfi_bot"
+                href="https://t.me/wardenai_bot"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 <MessageSquare className="size-4" />
-                ModFi Bot
+                Warden Bot
               </a>
               <a
                 href="https://x.com/modfiai"
@@ -96,7 +96,7 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-border">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-muted-foreground">
-              © 2024 ModFi. All rights reserved.
+              © 2024 Warden Bot. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
               <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">

@@ -80,7 +80,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       const { data, error } = await supabase.auth.signInWithWeb3({
         chain: 'solana',
-        statement: 'I accept the Terms of Service and Privacy Policy of SolanaBot AI.',
+        statement: 'I accept the Terms of Service and Privacy Policy of Warden Bot.',
         wallet: supabaseWallet as any,
       });
 
@@ -97,7 +97,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       toast({
         title: "Successfully signed in!",
-        description: "Welcome to SolanaBot AI.",
+        description: "Welcome to Warden Bot.",
       });
     } catch (error: any) {
       console.error('Error signing in with wallet:', error);

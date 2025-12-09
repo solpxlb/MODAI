@@ -28,7 +28,7 @@ const features = [
   {
     icon: RefreshCw,
     title: "Seamless Updates",
-    description: "Add, edit, or remove context as your project evolves — ModFi learns and adapts with you.",
+    description: "Add, edit, or remove context as your project evolves — Warden Bot learns and adapts with you.",
     gradient: "from-orange-600/10 to-orange-600/5",
     iconBg: "bg-orange-600/10",
     iconColor: "text-orange-700 dark:text-orange-300"
@@ -61,7 +61,7 @@ export function Features() {
             Powerful Features for Modern Communities
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            ModFi is your AI-powered community concierge built for Solana projects. It helps project teams scale conversations, answer questions 24/7, and keep their communities safe, fun, and informed — without burning out moderators.
+            Warden Bot is your AI-powered community concierge built for Solana projects. It helps project teams scale conversations, answer questions 24/7, and keep their communities safe, fun, and informed — without burning out moderators.
           </p>
         </div>
 

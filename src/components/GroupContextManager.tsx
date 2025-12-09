@@ -6,15 +6,15 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Edit, 
-  Trash2, 
-  Plus, 
-  MessageSquare, 
-  Users, 
-  Settings, 
+import {
+  Edit,
+  Trash2,
+  Plus,
+  MessageSquare,
+  Users,
+  Settings,
   Brain,
-  ExternalLink 
+  ExternalLink
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -52,7 +52,7 @@ interface ConversationMessage {
 
 export default function GroupContextManager() {
   const { toast } = useToast();
-  
+
   const [groups, setGroups] = useState<TelegramGroup[]>([]);
   const [selectedGroup, setSelectedGroup] = useState<TelegramGroup | null>(null);
   const [contexts, setContexts] = useState<GroupContext[]>([]);
@@ -60,7 +60,7 @@ export default function GroupContextManager() {
   const [loading, setLoading] = useState(true);
   const [jwtWallet, setJwtWallet] = useState<string | null>(null);
   const [jwtChecked, setJwtChecked] = useState(false);
-  
+
   // Form states
   const [editingContext, setEditingContext] = useState<GroupContext | null>(null);
   const [newContextType, setNewContextType] = useState('project_description');
@@ -165,7 +165,7 @@ export default function GroupContextManager() {
           .eq('id', editingContext.id);
 
         if (error) throw error;
-        
+
         toast({
           title: "Context Updated",
           description: "Successfully updated context.",
@@ -183,7 +183,7 @@ export default function GroupContextManager() {
           });
 
         if (error) throw error;
-        
+
         toast({
           title: "Context Added",
           description: "Successfully added new context.",
@@ -195,7 +195,7 @@ export default function GroupContextManager() {
       setNewContextContent('');
       setNewContextType('project_description');
       setEditingContext(null);
-      
+
       // Reload data
       loadGroupData();
 
@@ -256,7 +256,7 @@ export default function GroupContextManager() {
         {/* Background effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 via-transparent to-gray-800/20" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(220_8%_20%/0.1),transparent_50%)]" />
-        
+
         <Card className="relative z-10 bg-card/80 backdrop-blur-lg border-border/20 shadow-elevated">
           <CardContent className="p-8 text-center space-y-4">
             <div className="relative mx-auto w-12 h-12">
@@ -279,9 +279,9 @@ export default function GroupContextManager() {
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 via-transparent to-gray-800/20" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(220_8%_20%/0.1),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,hsl(220_8%_15%/0.1),transparent_50%)]" />
-      
+
       <div className="container mx-auto max-w-7xl relative z-10 space-y-6">
-        
+
         {/* Header */}
         <div className="space-y-4">
           <Card className="bg-card/80 backdrop-blur-lg border-border/20 shadow-elevated">
@@ -324,15 +324,15 @@ export default function GroupContextManager() {
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {jwtChecked
                     ? (jwtWallet
-                        ? `Connected wallet: ${jwtWallet.slice(0, 8)}...${jwtWallet.slice(-8)}. If this isn't the wallet linked to your groups, please disconnect and reconnect with the correct wallet.`
-                        : 'No wallet detected in your session. Please reconnect your wallet to access your groups.')
+                      ? `Connected wallet: ${jwtWallet.slice(0, 8)}...${jwtWallet.slice(-8)}. If this isn't the wallet linked to your groups, please disconnect and reconnect with the correct wallet.`
+                      : 'No wallet detected in your session. Please reconnect your wallet to access your groups.')
                     : 'Verifying your wallet connection...'}
                 </p>
               </div>
               <div className="flex justify-center">
-                <WalletAuthButton 
-                  className="bg-crypto-orange hover:bg-crypto-orange/90 text-white shadow-lg hover:shadow-xl hover:shadow-crypto-orange/25 transition-all duration-300" 
-                  showDisconnect 
+                <WalletAuthButton
+                  className="bg-crypto-orange hover:bg-crypto-orange/90 text-white shadow-lg hover:shadow-xl hover:shadow-crypto-orange/25 transition-all duration-300"
+                  showDisconnect
                 />
               </div>
             </CardContent>
@@ -356,13 +356,12 @@ export default function GroupContextManager() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {groups.map((group) => (
-                  <Card 
+                  <Card
                     key={group.id}
-                    className={`cursor-pointer transition-all duration-300 hover:shadow-lg bg-muted/30 border-border/50 ${
-                      selectedGroup?.id === group.id 
-                        ? 'ring-2 ring-crypto-orange bg-crypto-orange/5 border-crypto-orange/30 shadow-lg shadow-crypto-orange/10' 
-                        : 'hover:border-crypto-orange/20 hover:bg-crypto-orange/5'
-                    }`}
+                    className={`cursor-pointer transition-all duration-300 hover:shadow-lg bg-muted/30 border-border/50 ${selectedGroup?.id === group.id
+                      ? 'ring-2 ring-crypto-orange bg-crypto-orange/5 border-crypto-orange/30 shadow-lg shadow-crypto-orange/10'
+                      : 'hover:border-crypto-orange/20 hover:bg-crypto-orange/5'
+                      }`}
                     onClick={() => setSelectedGroup(group)}
                   >
                     <CardContent className="p-4 space-y-3">
@@ -373,7 +372,7 @@ export default function GroupContextManager() {
                         </p>
                       </div>
                       <div className="flex items-center justify-between">
-                        <Badge 
+                        <Badge
                           variant={group.is_active ? 'default' : 'secondary'}
                           className={group.is_active ? 'bg-crypto-orange/20 text-crypto-orange border-crypto-orange/30' : ''}
                         >
@@ -394,22 +393,22 @@ export default function GroupContextManager() {
         {selectedGroup && (
           <Tabs defaultValue="contexts" className="space-y-6">
             <TabsList className="bg-muted/50 backdrop-blur-sm border border-border/20">
-              <TabsTrigger 
-                value="contexts" 
+              <TabsTrigger
+                value="contexts"
                 className="flex items-center gap-2 data-[state=active]:bg-crypto-orange data-[state=active]:text-white"
               >
                 <Brain className="h-4 w-4" />
                 AI Context
               </TabsTrigger>
-              <TabsTrigger 
-                value="messages" 
+              <TabsTrigger
+                value="messages"
                 className="flex items-center gap-2 data-[state=active]:bg-crypto-orange data-[state=active]:text-white"
               >
                 <MessageSquare className="h-4 w-4" />
                 Messages
               </TabsTrigger>
-              <TabsTrigger 
-                value="settings" 
+              <TabsTrigger
+                value="settings"
                 className="flex items-center gap-2 data-[state=active]:bg-crypto-orange data-[state=active]:text-white"
               >
                 <Settings className="h-4 w-4" />
@@ -420,7 +419,7 @@ export default function GroupContextManager() {
             {/* AI Context Tab */}
             <TabsContent value="contexts">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                
+
                 {/* Add/Edit Context Form */}
                 <Card className="bg-card/80 backdrop-blur-lg border-border/20 shadow-elevated">
                   <CardHeader className="space-y-3">
@@ -476,8 +475,8 @@ export default function GroupContextManager() {
                       />
                     </div>
                     <div className="flex gap-3 pt-2">
-                      <Button 
-                        onClick={addOrUpdateContext} 
+                      <Button
+                        onClick={addOrUpdateContext}
                         className="flex-1 bg-crypto-orange hover:bg-crypto-orange/90 text-white shadow-lg hover:shadow-xl hover:shadow-crypto-orange/25 transition-all duration-300"
                       >
                         {editingContext ? 'Update Context' : 'Add Context'}
@@ -618,7 +617,7 @@ export default function GroupContextManager() {
                     <div className="space-y-2 text-sm">
                       <p><strong>Title:</strong> {selectedGroup.group_title}</p>
                       <p><strong>Chat ID:</strong> {selectedGroup.chat_id}</p>
-                      <p><strong>Status:</strong> 
+                      <p><strong>Status:</strong>
                         <Badge variant={selectedGroup.is_active ? 'default' : 'secondary'} className="ml-2">
                           {selectedGroup.is_active ? 'Active' : 'Inactive'}
                         </Badge>
@@ -626,7 +625,7 @@ export default function GroupContextManager() {
                       <p><strong>Created:</strong> {new Date(selectedGroup.created_at).toLocaleString()}</p>
                     </div>
                   </div>
-                  
+
                   <div className="p-4 border rounded-lg">
                     <h4 className="font-medium mb-2">AI Configuration</h4>
                     <p className="text-sm text-muted-foreground mb-3">
@@ -649,7 +648,7 @@ export default function GroupContextManager() {
               <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <h3 className="font-medium mb-2">No Groups Found</h3>
               <p className="text-muted-foreground mb-4">
-                Add the bot to your Telegram group and run /settings@modfi_bot to get started
+                Add the bot to your Telegram group and run /settings@wardenai_bot to get started
               </p>
             </CardContent>
           </Card>

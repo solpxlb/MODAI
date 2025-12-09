@@ -1,17 +1,17 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { 
-  Activity, 
-  Bot, 
-  DollarSign, 
-  MessageSquare, 
-  Settings, 
-  TrendingUp, 
+import {
+  Activity,
+  Bot,
+  DollarSign,
+  MessageSquare,
+  Settings,
+  TrendingUp,
   Users,
   Zap
 } from "lucide-react";
-import ModFiLogo from "/orb.png";
+import WardenBotLogo from "/warden_logo_trans.png";
 
 const BotDashboard = () => {
   const bots = [
@@ -28,7 +28,7 @@ const BotDashboard = () => {
     {
       id: 2,
       name: "Jupiter Protocol Bot",
-      status: "Active", 
+      status: "Active",
       group: "@jupiter_exchange",
       members: 28650,
       responses: 158,
@@ -42,11 +42,11 @@ const BotDashboard = () => {
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-8 flex items-center gap-4">
-          <img src={ModFiLogo} alt="ModFi AI" className="h-12 w-auto" />
+          <img src={WardenBotLogo} alt="Warden Bot" className="h-12 w-auto" />
           <div>
             <h1 className="text-4xl font-bold mb-2">Bot Dashboard</h1>
             <p className="text-muted-foreground text-lg">
-              Manage and monitor your ModFi AI Telegram bots
+              Manage and monitor your Warden Bot Telegram bots
             </p>
           </div>
         </div>
@@ -115,7 +115,7 @@ const BotDashboard = () => {
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle className="flex items-center gap-2">
-                        <img src={ModFiLogo} alt="ModFi AI" className="h-5 w-auto" />
+                        <img src={WardenBotLogo} alt="Warden Bot" className="h-5 w-auto" />
                         {bot.name}
                       </CardTitle>
                       <CardDescription className="mt-1">
@@ -123,8 +123,8 @@ const BotDashboard = () => {
                       </CardDescription>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge 
-                        variant="secondary" 
+                      <Badge
+                        variant="secondary"
                         className="bg-crypto-green/20 text-crypto-green border-crypto-green/30"
                       >
                         {bot.status}
@@ -155,8 +155,8 @@ const BotDashboard = () => {
                     <div className="space-y-1">
                       <p className="text-sm font-medium text-muted-foreground">24h Change</p>
                       <div className="flex items-center gap-1">
-                        <TrendingUp 
-                          className={`h-4 w-4 ${bot.change.startsWith('+') ? 'text-crypto-green' : 'text-crypto-red'}`} 
+                        <TrendingUp
+                          className={`h-4 w-4 ${bot.change.startsWith('+') ? 'text-crypto-green' : 'text-crypto-red'}`}
                         />
                         <p className={`text-lg font-semibold ${bot.change.startsWith('+') ? 'text-crypto-green' : 'text-crypto-red'}`}>
                           {bot.change}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import ModFiLogo from "/orb.png";
+import WardenBotLogo from "/warden_logo_trans.png";
 import { useNavigate } from "react-router-dom";
 import { WalletAuthButton } from "@/components/WalletAuthButton";
 import { useAuth } from "@/components/AuthProvider";
@@ -34,15 +34,15 @@ export const Navbar = () => {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-warm backdrop-blur-sm border-b border-gray-200">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="relative flex justify-between items-center h-14">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="relative flex justify-between items-center h-16">
           {/* Logo - Left */}
           <div
             className="flex items-center cursor-pointer group"
             onClick={() => navigate('/')}
           >
             <div className="flex items-center">
-              <img src={ModFiLogo} alt="ModFi" className="h-10 w-auto transition-transform duration-300 group-hover:scale-105" />
+              <img src={WardenBotLogo} alt="Warden Bot" className="h-14 w-auto transition-transform duration-300 group-hover:scale-105" />
             </div>
           </div>
 
